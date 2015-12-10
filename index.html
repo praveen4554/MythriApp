@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mythri Consulting</title>
+     <meta charset="utf-8" />
+    <script src="libraries/angular.js"></script>
+    <script type="text/javascript">
+        angular.module('myApp', []);
+    </script>
+    <style type="text/css">
+        div{
+            border: 1px solid black;
+            width:400px;
+            height:150px;
+            padding:20px;
+            text-align: center;
+            margin-top:180px;
+            margin-left: 350px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+        <header style="background-color: black;">
+            <img src="Images/~logo.png"></img>
+            <span style="float:right;color:white;padding-top:15px;">Webmail</span> 
+        </header> 
+        <div style="border:1px solid black;">
+        <label style="padding-right:95px">User Name</label><br>
+        <input type="text" id="username" name="username" ng-model="username"  required></input><br><br>
+        <label style="padding-right:100px">Password</label><br>
+        <input type="password" id="password" name="password" ng-model="password" required></input><br><br>
+        <a href="signin.html"> <button>Signin</button></a>
+        <a href="register.html"> <button>Register</button></a>
+    </div>
+    <footer></footer>
+	
+</body>
+</html>
