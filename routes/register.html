@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Mythri Consulting</title>
+     <meta charset="utf-8" />
+    <script src="../libraries/angular.js"></script>
+    <script type="text/javascript">
+        var app=angular.module('myApp', []);
+         app.controller('mycontroller',['$scope','$http','$location',function($scope,$http,$location){
+            $scope.val=true;
+            $scope.eval=true;
+        $scope.passwordcheck=function()
+        {
+            if(($scope.password==$scope.vpassword)&&($scope.username!=""))
+            {
+                $scope.val=false;
+            }
+            else
+            {
+                $scope.eval=true;
+            }
+        }
+        $scope.emailcheck=function()
+        {
+            var mail=$scope.email;
+            var str=mail.split('@');
+            if(str[1]=="mythriconsulting.com")
+            {                
+                $scope.eval=false;
+            }
+            else
+            {
+                $scope.eval=true;
+            }
+        }
+        $scope.register = function()
+        {
+            $http.post('http://localhost:8090/registration',{"uname":$scope.username,"pwd":$scope.password,"email":$scope.email}).then(function(data){
+                        $scope.valq='./registration';
+                        $scope.user=data.uname;
+                    }).catch(function(error){
+                console.log(error);
+            });
+            $location.path('http://localhost:8090').replace();
+            alert($scope.user);
+        }
+    }]);
+    </script>
+    <style type="text/css">
+        div{
+            border: 1px solid black;
+            width:400px;
+            height:250px;
+            padding:20px;
+            text-align: center;
+            margin-top:180px;
+            margin-left: 350px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+        <header style="background-color: black;">
+            <img src="../Images/~logo.png"></img>
+        </header>
+  		<div ng-controller="mycontroller">
+			 <label style="padding-right:95px;">User Name</label><br>
+			 <input type="text" id="username" name="username" ng-model="username" required></input><br>
+			 <label style="padding-right:108px;">Password</label><br>
+			 <input type="password" id="password" name="password" ng-model="password" required></input><br>
+			 <label style="padding-right:65px;">Verify Password</label><br>
+			 <input type="password" id="vpassword" name="vpassword" ng-model="vpassword" ng-blur="passwordcheck()" required></input><br>
+             <label style="padding-right:70px;">Email Address:</label><br>
+             <input type="email" name="userEmail" ng-model="email" ng-blur="emailcheck()" required /><br><br>
+			 <button ng-click="register()" ng-disabled=val||eval>Submit</button>
+</body>
+</html>

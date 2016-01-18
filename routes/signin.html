@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html ng-app="signin">
+<head>
+    <title>Interview Schedule</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libraries/angular.js"></script>
+    <script type="text/javascript" src="Controllers/tableController.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="libraries/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+    <style>
+      table, td, th {    
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+      th{
+        background-color: green;
+        color: white;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th, td {
+        text-align: left;
+        padding: 8px;
+        }
+        .modal-body {
+                    display: table; 
+                     }
+        .modal-body input {
+        display: table-cell;
+        }
+        .modal-body label {
+        display: table-cell;
+        }
+
+        .modal-body p {
+        display: table-row;
+        }
+tr:nth-child(even){background-color: #f2f2f2}
+      footer{
+        position: fixed;
+        bottom: 30px;
+        right:20px;
+      }
+    </style>
+   </head>
+   <body ng-controller="tableController">
+   	<header style="background-color: black;">
+            <img src="Images/~logo.png"></img>
+			<a href="index.html" style="float:right;color:white">Signout</a> 
+        </header>
+        <nav>
+            <table style="padding-top:10px">
+               <thead>
+                <th style="width:15px">
+                </th>
+                <th>
+                    Interview Timing
+                </th>
+                <th>
+                    Consultant Name
+                </th>
+                <th>
+                    InterviewType
+                </th>
+                <th>
+                    Client/Vendor
+                </th>
+                <th>
+                    Proxy
+                </th>
+                <th>
+                    Marketing By
+                </th>
+                <th>
+                    Comments
+                </th>
+                <thead>
+                    <tbody id="columns">
+                        <tr ng-repeat="name in check">
+                            <td><input type="checkbox" ng-model="name.isChecked" ng-click="del($index)"></td>
+                            <td>{{name.InterviewTime}}</td>
+                            <td>{{name.ConsultantName}}</td>
+                            <td>{{name.InterviewType}}</td>
+                            <td>{{name.ClientVendor}}</td>
+                            <td>{{name.Proxy}}</td>
+                            <td>{{name.MarketingBy}}</td>
+                            <td>{{name.Comments}}</td>
+                        </tr>
+                    </tbody>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Interview Details</h4>
+            </div>
+            <div class="modal-body">
+                <p><label>Interview Timing</label>
+                <input type="text" name="time" ng-model="timing"/></p><br>
+                <p><label>Consultant Name</label>
+                <input type="text" name="cname" ng-model="cname"/></p><br>
+                <p><label>Interview Type</label>
+                <input type="text" name="itype" ng-model="itype"/></p><br>
+                <p><label>Client/Vendor</label>
+                <input type="text" name="cv" ng-model="cv"/></p><br>
+                <p><label>Proxy</label>
+                <input type="text" name="proxy" ng-model="proxy"/></p><br>
+                <p><label>Marketing By</label>
+                <input type="text" name="market" ng-model="market"/></p><br>
+                <p><label>Comments</label>
+                <textarea name="cmnts" ng-model="cmnts"></textarea></p><br>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addrow()" ng-show=ad>Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="change()" ng-show=ud>Update</button>
+            </div>
+            </div>
+      
+            </div>
+            </div>
+
+        </nav>
+        <footer>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="add()">Add Row</button>
+            <button type="button" class="btn btn-info btn-lg" ng-click="setSelected()">Delete Row</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="update()" ng-disabled=upd>Update Row</button>
+        </footer>
+</body>
+</html>

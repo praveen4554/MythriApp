@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
     <title>Mythri Consulting</title>
      <meta charset="utf-8" />
     <script src="libraries/angular.js"></script>
     <script type="text/javascript">
-        angular.module('myApp', []);
+       var app= angular.module('myApp', []);
+    app.controller('mycontroller',function($scope,$http){
+            $scope.signin=function(){
+                console.log($scope.username);
+            $http.post('http://localhost:8090/login',{"username":$scope.username,"password":$scope.password}).then(function(data){
+                console.log("success"+data);
+            }).catch(function(error){
+            console.log(error);
+         });
+        }
+    });
     </script>
     <style type="text/css">
         div{
@@ -20,18 +30,21 @@
         }
     </style>
 </head>
-<body ng-app="myApp">
+<body ng-controller="mycontroller">
         <header style="background-color: black;">
             <img src="Images/~logo.png"></img>
             <span style="float:right;color:white;padding-top:15px;">Webmail</span> 
         </header> 
         <div style="border:1px solid black;">
+        <form>
         <label style="padding-right:95px">User Name</label><br>
-        <input type="text" id="username" name="username" ng-model="username"  required></input><br><br>
+        <input type="text" id="username" name="username" ng-model="username"  required></input><br>
         <label style="padding-right:100px">Password</label><br>
         <input type="password" id="password" name="password" ng-model="password" required></input><br><br>
-        <a href="signin.html"> <button>Signin</button></a>
-        <a href="register.html"> <button>Register</button></a>
+        </form>
+        <a href="./login"><button ng-click="signin()">Signin</button></a>
+        <a href="./register"> <button>Register</button></a>
+    
     </div>
     <footer></footer>
 	

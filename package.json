@@ -1,0 +1,22 @@
+{
+  "name": "RestUser",
+  "version": "0.0.1",
+  "description": "App development",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NXG",
+  "license": "NXG",
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "mongodb": "*",
+    "nodemailer":"*",
+    "validator":"*",
+    "crypto":"*",
+    "mongoose":"*",
+    "shortid":"*",
+    "geocoder":"*"
+  }
+}
