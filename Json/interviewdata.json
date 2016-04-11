@@ -1,0 +1,32 @@
+{
+  "interview":[{"test":"Coding Test"},
+  {"test":"Phone"},
+  {"test":"Phone-Coding"},
+  {"test":"Skype"},
+  {"test":"WebEx"},
+  {"test":"Hangouts"},
+  {"test":"BlueaJeans"}],
+
+  "proxy":[{"proxy":"Viswa"},
+  {"proxy":"Bharadwaj"},
+  {"proxy":"Naveen"},
+  {"proxy":"Adithya"},
+  {"proxy":"Anvesh"},
+  {"proxy":"Swathi"},
+  {"proxy":"Raveena"},
+  {"proxy":"Vidisha"}],
+
+  "MarketingBy":[{"name":"Viswa"},
+  {"name":"Avanish"},
+  {"name":"Raja"},
+  {"name":"Venkat"},
+  {"name":"Nagesh"},
+  {"name":"Sagar"},
+  {"name":"Aravind"},
+  {"name":"Niharika"},
+  {"name":"Phanindra"},
+  {"name":"Kishore"}],
+
+  "Email":[{"name":"Viswa","mail":"viswa.kandi@gmail.com"},
+  {"name":"Bharadwaj","mail":"gpraveen@mythriconsulting.com"}]
+}

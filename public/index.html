@@ -7,13 +7,17 @@
     <script type="text/javascript">
        var app= angular.module('myApp', []);
     app.controller('mycontroller',function($scope,$http){
+        //$scope.message="";
             $scope.signin=function(){
                 console.log($scope.username);
-            $http.post('http://localhost:8090/login',{"username":$scope.username,"password":$scope.password}).then(function(data){
+            $http.post('/login',{"username":$scope.username,"password":$scope.password}).then(function(data){
                 console.log("success"+data);
             }).catch(function(error){
             console.log(error);
          });
+            /*$http.get('/'+"a").then(function(responce){
+                alert(responce.data.message);
+            });*/
         }
     });
     </script>
@@ -38,9 +42,10 @@
         <div style="border:1px solid black;">
         <form>
         <label style="padding-right:95px">User Name</label><br>
-        <input type="text" id="username" name="username" ng-model="username"  required></input><br>
+        <input type="text" id="username" name="username" ng-model="username" ng-blur= required></input><br>
         <label style="padding-right:100px">Password</label><br>
-        <input type="password" id="password" name="password" ng-model="password" required></input><br><br>
+        <input type="password" id="password" name="password" ng-model="password" required></input><br>
+        <a href="./forget" style="color:blue;padding-right:56px">(forgot password)</a><br><br>
         </form>
         <a href="./login"><button ng-click="signin()">Signin</button></a>
         <a href="./register"> <button>Register</button></a>

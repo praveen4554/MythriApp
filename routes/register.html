@@ -23,6 +23,13 @@
         $scope.emailcheck=function()
         {
             var mail=$scope.email;
+            var name=$scope.username;
+            if(mail==undefined)
+            {
+
+            }
+            else
+            {
             var str=mail.split('@');
             if(str[1]=="mythriconsulting.com")
             {                
@@ -32,17 +39,18 @@
             {
                 $scope.eval=true;
             }
+
+            
+          }
         }
         $scope.register = function()
         {
-            $http.post('http://localhost:8090/registration',{"uname":$scope.username,"pwd":$scope.password,"email":$scope.email}).then(function(data){
-                        $scope.valq='./registration';
+            $http.post('/registeration',{"uname":$scope.username,"pwd":$scope.password,"email":$scope.email}).then(function(data){
                         $scope.user=data.uname;
+                        console.log("hi"+$scope.user);
                     }).catch(function(error){
                 console.log(error);
             });
-            $location.path('http://localhost:8090').replace();
-            alert($scope.user);
         }
     }]);
     </script>
@@ -72,6 +80,6 @@
 			 <input type="password" id="vpassword" name="vpassword" ng-model="vpassword" ng-blur="passwordcheck()" required></input><br>
              <label style="padding-right:70px;">Email Address:</label><br>
              <input type="email" name="userEmail" ng-model="email" ng-blur="emailcheck()" required /><br><br>
-			 <button ng-click="register()" ng-disabled=val||eval>Submit</button>
+			 <a href='./registeration'><button ng-click="register()" ng-disabled=val||eval>Submit</button></a>
 </body>
 </html>

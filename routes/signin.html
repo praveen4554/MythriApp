@@ -1,34 +1,38 @@
 ﻿<!DOCTYPE html>
-<html ng-app="signin">
+<html ng-app="myApp">
 <head>
     <title>Interview Schedule</title>
      <meta charset="utf-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="libraries/angular.js"></script>
-    <script type="text/javascript" src="Controllers/tableController.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="libraries/jquery.js"></script>
+    <script src="../libraries/angular.js"></script>
+    <script type="text/javascript" src="../Controllers/tableController.js"></script>
+    <script type="text/javascript" src="../Controllers/factory.js"></script>
+    <script type="text/javascript" src="../Controllers/timepicker.js"></script>
+    <script type="text/javascript" src="../Controllers/position.js"></script>
+    <script type="text/javascript" src="../Controllers/timepicker-tpl.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel='stylesheet prefetch' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.css'>
+   <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.0.5/docs.css'>
+    <script src="../libraries/jquery.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/release/ui-grid.js"></script>
+    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js'></script>
+<script src='http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js'></script>
+<script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.5/angular-material.js'></script>
+<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/1.1.4/angularfire.min.js"></script>
+<script type="text/javascript">
+</script>
     <style>
-      table, td, th {    
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-      th{
-        background-color: green;
-        color: white;
-      }
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        }
-
-        th, td {
-        text-align: left;
-        padding: 8px;
-        }
         .modal-body {
                     display: table; 
                      }
@@ -38,11 +42,12 @@
         .modal-body label {
         display: table-cell;
         }
-
         .modal-body p {
         display: table-row;
         }
-tr:nth-child(even){background-color: #f2f2f2}
+        .md-datepicker-calendar-pane.md-pane-open{
+           z-index:1050; 
+        }
       footer{
         position: fixed;
         bottom: 30px;
@@ -52,11 +57,13 @@ tr:nth-child(even){background-color: #f2f2f2}
    </head>
    <body ng-controller="tableController">
    	<header style="background-color: black;">
-            <img src="Images/~logo.png"></img>
+            <img src="../Images/~logo.png"></img>
 			<a href="index.html" style="float:right;color:white">Signout</a> 
         </header>
+
         <nav>
-            <table style="padding-top:10px">
+
+            <!--<table style="padding-top:10px">
                <thead>
                 <th style="width:15px">
                 </th>
@@ -81,20 +88,27 @@ tr:nth-child(even){background-color: #f2f2f2}
                 <th>
                     Comments
                 </th>
-                <thead>
-                    <tbody id="columns">
-                        <tr ng-repeat="name in check">
-                            <td><input type="checkbox" ng-model="name.isChecked" ng-click="del($index)"></td>
-                            <td>{{name.InterviewTime}}</td>
-                            <td>{{name.ConsultantName}}</td>
-                            <td>{{name.InterviewType}}</td>
-                            <td>{{name.ClientVendor}}</td>
-                            <td>{{name.Proxy}}</td>
-                            <td>{{name.MarketingBy}}</td>
-                            <td>{{name.Comments}}</td>
+                </thead>
+                    <tbody>
+                        <tr ng-repeat="person in persons">
+                            <td><input type="checkbox" ng-model="person.isChecked" ng-click="checked($index)"></td>
+                            <td>{{person.interviewtiming}}</td>
+                            <td>{{person.consultantname}}</td>
+                            <td>{{person.interviewtype}}</td>
+                            <td>{{person.client}}</td>
+                            <td>{{person.proxy}}</td>
+                            <td>{{person.Marketingby}}</td>
+                            <td>{{person.comments}}</td>
                         </tr>
                     </tbody>
-            </table>
+            </table>-->
+            <br>
+            <div>
+                <p>Search<input type="text" name="fname" ng-model="fname" ng-change="refreshData()">
+                    <span style="float:right;padding-right:10px;">welcome {{uname}}</span>
+                </p>
+            </div>   
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -106,18 +120,29 @@ tr:nth-child(even){background-color: #f2f2f2}
             <h4 class="modal-title">Interview Details</h4>
             </div>
             <div class="modal-body">
+                <p><label>Interview Date</label>
+                <md-datepicker name="dateField" ng-model="idate" md-placeholder="Enter date"></md-datepicker></p><br>
                 <p><label>Interview Timing</label>
-                <input type="text" name="time" ng-model="timing"/></p><br>
+                <input ps-input-time sy-timepicker-popup="HH:mm:ss" class="form-control" ng-model="timing" show-meridian="false"       is-open="opened" ng-change="time()" /></p><br>
                 <p><label>Consultant Name</label>
                 <input type="text" name="cname" ng-model="cname"/></p><br>
                 <p><label>Interview Type</label>
-                <input type="text" name="itype" ng-model="itype"/></p><br>
+                <select ng-model="mySelect" ng-change="showSelectValue(mySelect)">
+                    <option ng-repeat="row in interview" value="{{row.test}}">{{row.test}}</option>    
+                    </select>
+                    </p><br>
                 <p><label>Client/Vendor</label>
                 <input type="text" name="cv" ng-model="cv"/></p><br>
                 <p><label>Proxy</label>
-                <input type="text" name="proxy" ng-model="proxy"/></p><br>
-                <p><label>Marketing By</label>
-                <input type="text" name="market" ng-model="market"/></p><br>
+                <select ng-model="Proxy" ng-change="showSelectProxy(Proxy)">
+                    <option ng-repeat="row in ProxyData" value="{{row.proxy}}">{{row.proxy}}</option>    
+                    </select>
+                    </p><br>
+                <p><label>Marketing By</label>  
+                <select ng-model="Market" ng-change="showSelectMarket(Market)">
+                    <option ng-repeat="row in MarketedData" value="{{row.name}}">{{row.name}}</option>    
+                    </select>
+                    </p><br>
                 <p><label>Comments</label>
                 <textarea name="cmnts" ng-model="cmnts"></textarea></p><br>
             </div>
@@ -126,14 +151,12 @@ tr:nth-child(even){background-color: #f2f2f2}
             <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="change()" ng-show=ud>Update</button>
             </div>
             </div>
-      
             </div>
             </div>
-
         </nav>
         <footer>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="add()">Add Row</button>
-            <button type="button" class="btn btn-info btn-lg" ng-click="setSelected()">Delete Row</button>
+            <button type="button" class="btn btn-info btn-lg" ng-click="delete()">Delete Row</button>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="update()" ng-disabled=upd>Update Row</button>
         </footer>
 </body>

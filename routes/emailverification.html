@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  ng-app="myApp">
+<head>
+    <title>Mythri Consulting</title>
+     <meta charset="utf-8" />
+    <script src="libraries/angular.js"></script>
+        <script type="text/javascript">
+       var app= angular.module('myApp', []);
+    app.controller('mycontroller',function($scope,$http){
+        //$scope.message="";
+            $scope.verification=function(){
+                console.log($scope.verify);
+                
+            $http.post('/valid',{"verify":$scope.verify}).then(function(data){
+                console.log("success"+data);
+            }).catch(function(error){
+            console.log(error);
+         });
+        }
+    });
+    </script>
+</head>
+<body ng-controller="mycontroller">
+        <header style="background-color: black;">
+            <img src="Images/~logo.png"></img>
+            <span style="float:right;color:white;padding-top:15px;">Webmail</span> 
+        </header>
+        <label>Verification code sent through the mail</label><br>
+        <input type="text" id="verify" name="verify" ng-model="verify" required></input><br>
+        <a href="./valid"><button ng-click="verification()">Submit</button></a>
+    </div>
+</body>
+</html>

@@ -12,11 +12,12 @@
     "body-parser": "*",
     "express": "*",
     "mongodb": "*",
-    "nodemailer":"*",
+    "nodemailer":"0.7.1",
     "validator":"*",
     "crypto":"*",
     "mongoose":"*",
     "shortid":"*",
-    "geocoder":"*"
+    "geocoder":"*",
+    "nodemon":"*"
   }
 }
